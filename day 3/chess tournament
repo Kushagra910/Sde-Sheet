@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+bool canPlacePlayers(vector<int>&positions,int n,int players,int distance){
+    int coordinate=positions[0],cnt=1;
+    for(int i=1;i<n;i++){
+        if((positions[i]-coordinate)>=distance){
+            cnt++;
+            coordinate=positions[i];
+        }
+        if(cnt==players) return true;
+    }
+    return false;
+}
+int chessTournament(vector<int> positions , int n ,  int c){
+	// Write your code here
+    sort(positions.begin(),positions.end());
+    int s=positions.size();
+    int lo=1;
+    int hi=positions[s-1]-positions[0];
+    int res=-1;
+    while(lo<=hi){
+        int mid=(lo+hi)>>1;
+        if(canPlacePlayers(positions,n,c,mid)){
+            res=mid;
+            lo=mid+1;
+        }
+        else{
+            hi=mid-1;
+        }
+    }
+    return res;
+}

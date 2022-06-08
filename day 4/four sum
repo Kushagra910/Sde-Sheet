@@ -1,0 +1,38 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+  public static String fourSum(int[] arr, int target, int n) {
+      // Write your code here.
+      Map<Integer, ArrayList<Integer>> st=new HashMap<>();
+      for(int i=0; i<n; i++){
+          for(int j=i+1; j<n; j++){
+              int s=arr[i]+arr[j];
+              if(st.get(s) == null){
+                  ArrayList<Integer> l=new ArrayList<>();
+                  l.add(i);
+                  l.add(j);
+                  st.put(s, l);
+              }
+          }
+      }
+      for(int i=0; i<n; i++){
+          for(int j=i+1; j<n; j++){
+              Set<Integer> set=new HashSet<>();
+              int x=arr[i]+arr[j];
+              int y=target-arr[i]-arr[j];
+              if(st.get(x) != null){
+                  ArrayList<Integer> l=st.get(x);
+                  set.add(l.get(0));
+                  set.add(l.get(1));
+              }
+              if(st.get(y) != null){
+                  ArrayList<Integer> l=st.get(y);
+                  if(set.contains(l.get(0)) == false)set.add(l.get(0));
+                  if(set.contains(l.get(1)) == false)set.add(l.get(1));
+              }
+              if(set.size() == 4)return "Yes";
+          }
+      }
+      return "No";
+  }
+}

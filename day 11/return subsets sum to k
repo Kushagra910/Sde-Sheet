@@ -1,0 +1,27 @@
+void solve(int ind,int sum,int target,vector<int>&arr,vector<vector<int>>&ans,vector<int>&ds){
+    if(ind == arr.size()){
+        if(sum==target){
+            ans.push_back(ds);
+           
+        }
+        return;
+    }
+         
+//      for(int i=ind;i<arr.size();i++){
+//      if(arr[ind]<=target){
+        ds.push_back(arr[ind]);
+        solve(ind+1,sum+arr[ind],target,arr,ans,ds);
+        ds.pop_back();
+//      }
+    solve(ind+1,sum,target,arr,ans,ds);
+}
+vector<vector<int>> findSubsetsThatSumToK(vector<int> arr, int n, int k)
+{
+    // Write your code here.
+//     sort(arr.begin(), arr.end());  
+
+    vector<vector<int>>ans;
+    vector<int>ds;
+    solve(0,0,k,arr,ans,ds);
+    return ans;
+}

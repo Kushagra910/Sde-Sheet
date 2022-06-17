@@ -1,0 +1,25 @@
+void solve(string&s,vector<string>&ans,string&ds,int freq[]){
+    if(ds.length()==s.length()){
+        ans.push_back(ds);
+        return;
+    }
+    for(int i=0;i<s.length();i++){
+        if(!freq[i]){
+            ds.push_back(s[i]);
+            freq[i]=1;
+            solve(s,ans,ds,freq);
+            freq[i]=0;
+            ds.pop_back();
+        }
+    }
+}
+vector<string> findPermutations(string &s) {
+    vector<string>ans;
+    string ds="";
+    int freq[s.length()];
+    for(int i=0;i<s.length();i++){
+        freq[i]=0;
+    }
+    solve(s,ans,ds,freq);
+    return ans;
+}

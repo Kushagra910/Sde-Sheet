@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+struct temp{
+    int weight;
+    int value;
+};
+bool comparator(struct temp a,temp b){
+    double r1=(double)a.value/(double)a.weight;
+    double r2=(double)b.value/(double)b.weight;
+    return r1>r2;
+}
+double maximumValue (vector<pair<int, int>>& items, int n, int w)
+{
+    // Write your code here.
+    struct temp ans[n];
+    for(int i=0;i<n;i++){
+        ans[i].weight=items[i].first;
+        ans[i].value=items[i].second;
+    }
+    sort(ans,ans+n,comparator);
+    int curr_weight=0;
+    double finalvalue=0;
+    for(int i=0;i<n;i++){
+        if(curr_weight+ans[i].weight<=w){
+            curr_weight+=ans[i].weight;
+            finalvalue+=ans[i].value;
+        }
+        else{
+            int remain=w-curr_weight;
+           finalvalue+=((double)ans[i].value/ans[i].weight)*(double)remain;
+            break;
+        }
+    }
+    return finalvalue;
+}

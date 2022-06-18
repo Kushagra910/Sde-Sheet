@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+struct temp{
+    int dead;
+    int profit;
+};
+bool comparator(struct temp t1,temp t2){
+    return t1.profit>t2.profit;
+}
+int jobScheduling(vector<vector<int>> &jobs)
+{
+    // Write your code here
+    int n=jobs.size();
+    struct temp job[n];
+    for(int i=0;i<n;i++){
+        job[i].dead=jobs[i][0];
+        job[i].profit=jobs[i][1];
+    }
+    sort(job,job+n,comparator);
+    int maxi=0;
+    for(int i=0;i<n;i++){
+        maxi=max(maxi,job[i].dead);
+    }
+    vector<int>slot(maxi+1,-1);
+    int job_profit=0;
+    for(int i=0;i<n;i++){
+        for(int j=job[i].dead;j>0;j--){
+            if(slot[j]==-1){
+                slot[j]=i;
+                job_profit+=job[i].profit;
+                break;
+            }
+          }
+        }
+    return job_profit;
+}

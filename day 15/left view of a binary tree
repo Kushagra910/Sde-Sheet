@@ -1,0 +1,32 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+void bakugo(TreeNode<int> *root,int level,vector<int>&ans){
+    if(root==NULL) return;
+    if(ans.size()==level) ans.push_back(root->data);
+    bakugo(root->left,level+1,ans);
+    bakugo(root->right,level+1,ans);
+}
+vector<int> getLeftView(TreeNode<int> *root)
+{
+    //    Write your code here
+    vector<int>ans;
+    bakugo(root,0,ans);
+    return ans;
+}

@@ -1,0 +1,39 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+#include<bits/stdc++.h>
+TreeNode<int> *isBuild(vector<int>&preorder,int ps,int pe,vector<int>&inorder,int inS,int inE,map<int,int>&inMap){
+    if(ps>pe || inS>inE) return NULL;
+    TreeNode<int>* root=new TreeNode<int>(preorder[ps]);
+    int inRoot=inMap[root->data];
+    int Numsleft=inRoot-inS;
+    root->left=isBuild(preorder,ps+1,ps+Numsleft,inorder,inS,inRoot-1,inMap);
+    root->right=isBuild(preorder,ps+Numsleft+1,pe,inorder,inRoot+1,inE,inMap);
+    return root;
+}
+TreeNode<int> *buildBinaryTree(vector<int> &inorder, vector<int> &preorder)
+{
+	//    Write your code here
+    map<int,int>inMap;
+    for(int i=0;i<inorder.size();i++){
+        inMap[inorder[i]]=i;
+    }
+    TreeNode<int> *root=isBuild(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1,inMap);
+    return root;
+}

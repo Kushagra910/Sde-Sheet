@@ -1,0 +1,32 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+void help(TreeNode<int>* root,int k,vector<int>&inorder){
+    if(root==NULL) return;
+    help(root->left,k,inorder);
+    inorder.push_back(root->data);
+    help(root->right,k,inorder);
+}
+int kthSmallest(TreeNode<int> *root, int k)
+{
+	//	Write the code here.
+    vector<int>inorder;
+    help(root,k,inorder);
+    return  inorder[k-1];
+}
